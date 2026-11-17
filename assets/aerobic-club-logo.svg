@@ -1,0 +1,27 @@
+<svg width="480" height="120" viewBox="0 0 480 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="12" y1="8" x2="104" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#713BE5"/>
+      <stop offset="0.5" stop-color="#C53FBA"/>
+      <stop offset="1" stop-color="#FF914D"/>
+    </linearGradient>
+    <linearGradient id="clubGradient" x1="118" y1="18" x2="380" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#713BE5"/>
+      <stop offset="1" stop-color="#FA579B"/>
+    </linearGradient>
+  </defs>
+
+  <g>
+    <circle cx="56" cy="60" r="46" fill="url(#logoGradient)"/>
+    <circle cx="56" cy="60" r="34" fill="white" fill-opacity="0.12"/>
+    <path d="M32 82L56 26L80 82" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M41 62H71" stroke="white" stroke-width="8" stroke-linecap="round"/>
+    <path d="M22 48C29 34 38 28 49 28" stroke="white" stroke-width="5" stroke-linecap="round" stroke-opacity="0.9"/>
+    <path d="M90 48C83 34 74 28 63 28" stroke="white" stroke-width="5" stroke-linecap="round" stroke-opacity="0.9"/>
+  </g>
+
+  <g font-family="Poppins, Arial, sans-serif">
+    <text x="118" y="66" fill="#24123D" font-size="30" font-weight="800" letter-spacing="1.5">AEROBIC</text>
+    <text x="290" y="66" fill="url(#clubGradient)" font-size="30" font-weight="800" letter-spacing="1.5">CLUB</text>
+  </g>
+</svg>

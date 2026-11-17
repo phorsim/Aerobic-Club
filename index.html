@@ -44,9 +44,15 @@
         }
 
         .logo {
-            font-size: 23px;
-            font-weight: 800;
-            color: var(--purple);
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .logo img {
+            display: block;
+            width: clamp(180px, 28vw, 260px);
+            height: auto;
         }
 
         nav {
@@ -596,7 +602,9 @@
 <body>
 
     <header>
-        <div class="logo">AEROBIC CLUB</div>
+        <div class="logo" aria-label="Aerobic Club logo">
+            <img src="assets/aerobic-club-logo.svg" alt="Aerobic Club logo">
+        </div>
 
         <button id="menuBtn" aria-label="Open navigation">☰</button>
 
@@ -936,7 +944,7 @@
 
     <!-- FOOTER -->
     <footer>
-        <h2>💜 AEROBIC CLUB</h2>
+        <h2>AEROBIC CLUB</h2>
         <p>MOVE TOGETHER, SHINE TOGETHER!</p>
         <p>Generation 2027 | Health • Happiness • Unity • Friendship</p>
         <p>© 2026 Aerobic Club. All Rights Reserved.</p>
