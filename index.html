@@ -1,921 +1,1026 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aerobic Club | Generation 2027</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #25213b;
-      background: #fffaff;
-    }
-
-    :root {
-      --purple: #713be5;
-      --pink: #fa579b;
-      --orange: #ff914d;
-      --light: #f7f0ff;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 8%;
-      background: white;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 15px #0000000c;
-    }
-
-    .logo {
-      font-size: 23px;
-      font-weight: 800;
-      color: var(--purple);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      color: var(--pink);
-    }
-
-    .join-btn, .hero-btn {
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      color: white;
-      padding: 12px 24px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-    }
-
-    .hero {
-      min-height: 570px;
-      display: flex;
-      align-items: center;
-      padding: 70px 8%;
-      background:
-        linear-gradient(90deg, #24123dd9, #3b1d555c),
-        url('assets/club-team.png') center 48%/cover;
-      color: white;
-    }
-
-    .hero-content {
-      max-width: 650px;
-    }
-
-    .hero small {
-      color: #ffadcf;
-      font-weight: 700;
-      letter-spacing: 3px;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 7vw, 75px);
-      line-height: 1.15;
-      margin: 20px 0;
-    }
-
-    .hero h1 span {
-      color: #ff78b6;
-    }
-
-    .hero p {
-      line-height: 1.9;
-      margin-bottom: 30px;
-      color: #eee4f8;
-    }
-
-    section {
-      padding: 80px 8%;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .section-title small {
-      color: var(--pink);
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .section-title h2 {
-      font-size: 35px;
-      margin-top: 10px;
-    }
-
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .about img {
-      width: 100%;
-      border-radius: 25px;
-      min-height: 320px;
-      object-fit: cover;
-    }
-
-    .about h2 {
-      font-size: 32px;
-      margin-bottom: 18px;
-    }
-
-    .about p {
-      color: #777;
-      line-height: 1.9;
-      margin-bottom: 15px;
-    }
-
-    .activities {
-      background: var(--light);
-    }
-
-    .activity-explorer summary {
-      display: grid;
-      grid-template-columns: minmax(150px, 220px) 1fr auto;
-      align-items: center;
-      gap: 24px;
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 20px;
-      background: white;
-      box-shadow: 0 8px 25px #0000000a;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .activity-explorer summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .activity-explorer summary img {
-      width: 100%;
-      height: 140px;
-      border-radius: 14px;
-      object-fit: cover;
-    }
-
-    .activity-explorer-copy strong,
-    .activity-explorer-copy span {
-      display: block;
-    }
-
-    .activity-explorer-copy strong {
-      margin-bottom: 8px;
-      color: var(--purple);
-      font-size: 20px;
-    }
-
-    .activity-explorer-copy span {
-      color: #777;
-      line-height: 1.7;
-    }
-
-    .activity-explorer-action {
-      padding: 12px 18px;
-      border-radius: 30px;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      color: white;
-      font-weight: 600;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .activity-explorer[open] .show-activities,
-    .activity-explorer:not([open]) .hide-activities {
-      display: none;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px #0000000a;
-      transition: .3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .card img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 22px;
-    }
-
-    .card h3 {
-      color: var(--purple);
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #777;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 35px;
-    }
-
-    .benefit {
-      overflow: hidden;
-      border-radius: 18px;
-      background: var(--light);
-    }
-
-    .benefit img {
-      display: block;
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-    }
-
-    .benefit-content {
-      padding: 22px 25px 25px;
-    }
-
-    .benefit-content span {
-      font-size: 28px;
-    }
-
-    .benefit-content h3 {
-      margin: 12px 0 8px;
-      color: var(--purple);
-    }
-
-    .benefit-content p {
-      color: #777;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .members {
-      background: #fff5fa;
-    }
-
-    .member-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-    }
-
-    .member-card {
-      overflow: hidden;
-      border-radius: 18px;
-      background: white;
-      box-shadow: 0 8px 25px #0000000a;
-      text-align: center;
-    }
-
-    .member-card img {
-      display: block;
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-
-    .member-info {
-      padding: 18px 12px 20px;
-    }
-
-    .member-info h3 {
-      color: var(--purple);
-      font-size: 17px;
-    }
-
-    .member-info p {
-      margin-top: 5px;
-      color: #777;
-      font-size: 13px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      text-align: center;
-      background: linear-gradient(100deg, var(--purple), var(--pink));
-      color: white;
-    }
-
-    .stats h2 {
-      font-size: 38px;
-    }
-
-    .stats p {
-      color: #f5eaff;
-    }
-
-    .schedule {
-      max-width: 750px;
-      margin: auto;
-    }
-
-    .schedule-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 20px;
-      margin-bottom: 12px;
-      border-radius: 12px;
-      background: var(--light);
-    }
-
-    .schedule-item strong {
-      color: var(--purple);
-    }
-
-    .gallery {
-      background: #fff5fa;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      border-radius: 15px;
-    }
-
-    .faq {
-      max-width: 760px;
-      margin: auto;
-    }
-
-    .faq details {
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      border-radius: 12px;
-      background: var(--light);
-    }
-
-    .faq summary {
-      color: var(--purple);
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .faq details p {
-      margin-top: 12px;
-      color: #777;
-      line-height: 1.8;
-    }
-
-    .register {
-      background: linear-gradient(120deg, #351c63, #9a36a9);
-      color: white;
-      text-align: center;
-    }
-
-    .register p {
-      margin: 15px auto 30px;
-      max-width: 550px;
-      color: #eee1fa;
-    }
-
-    .register form {
-      max-width: 480px;
-      margin: auto;
-      display: grid;
-      gap: 15px;
-    }
-
-    .register input, .register select {
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-      font: inherit;
-    }
-
-    .register button {
-      padding: 15px;
-      border: none;
-      border-radius: 30px;
-      background: var(--orange);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    footer {
-      background: #211331;
-      color: white;
-      padding: 35px 8%;
-      text-align: center;
-    }
-
-    footer p {
-      color: #c8b9d6;
-      margin-top: 10px;
-      font-size: 13px;
-    }
-
-    #menuBtn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 26px;
-      cursor: pointer;
-    }
-
-    @media(max-width: 768px) {
-      header {
-        padding: 16px 5%;
-      }
-
-      #menuBtn {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        width: 100%;
-        background: white;
-        padding: 25px;
-        flex-direction: column;
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .activity-explorer summary {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
-      .activity-explorer summary img {
-        height: 190px;
-      }
-
-      .activity-explorer-action {
-        justify-self: start;
-      }
-
-      .benefits {
-        grid-template-columns: 1fr;
-      }
-
-      .member-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 60px 6%;
-      }
-
-      .hero {
-        padding: 60px 6%;
-      }
-
-      .section-title h2 {
-        font-size: 28px;
-      }
-    }
-
-    @media(max-width: 480px) {
-      .member-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .member-card img {
-        height: 300px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerobic Club | Generation 2027</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #25213b;
+            background: #fffaff;
+        }
+
+        :root {
+            --purple: #713be5;
+            --pink: #fa579b;
+            --orange: #ff914d;
+            --light: #f7f0ff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px #0000000c;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--purple);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: var(--pink);
+        }
+
+        .join-btn,
+        .hero-btn {
+            background: linear-gradient(90deg, var(--purple), var(--pink));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            padding: 70px 8%;
+            background:
+                linear-gradient(90deg, #24123dd9, #3b1d555c),
+                url('assets/club-team.png') center 48%/cover;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero small {
+            color: #ffadcf;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 75px);
+            line-height: 1.15;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #ff78b6;
+        }
+
+        .hero p {
+            line-height: 1.9;
+            margin-bottom: 30px;
+            color: #eee4f8;
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title small {
+            color: var(--pink);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-top: 10px;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 25px;
+            min-height: 320px;
+            object-fit: cover;
+        }
+
+        .about h2 {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .about p {
+            color: #777;
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
+        .activities {
+            background: var(--light);
+        }
+
+        .activity-explorer summary {
+            display: grid;
+            grid-template-columns: minmax(150px, 220px) 1fr auto;
+            align-items: center;
+            gap: 24px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 8px 25px #0000000a;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .activity-explorer summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .activity-explorer summary img {
+            width: 100%;
+            height: 140px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+
+        .activity-explorer-copy strong,
+        .activity-explorer-copy span {
+            display: block;
+        }
+
+        .activity-explorer-copy strong {
+            margin-bottom: 8px;
+            color: var(--purple);
+            font-size: 20px;
+        }
+
+        .activity-explorer-copy span {
+            color: #777;
+            line-height: 1.7;
+        }
+
+        .activity-explorer-action {
+            padding: 12px 18px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, var(--purple), var(--pink));
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .activity-explorer[open] .show-activities,
+        .activity-explorer:not([open]) .hide-activities {
+            display: none;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px #0000000a;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .card h3 {
+            color: var(--purple);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        .benefit {
+            overflow: hidden;
+            border-radius: 18px;
+            background: var(--light);
+        }
+
+        .benefit img {
+            display: block;
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .benefit-content {
+            padding: 22px 25px 25px;
+        }
+
+        .benefit-content span {
+            font-size: 28px;
+        }
+
+        .benefit-content h3 {
+            margin: 12px 0 8px;
+            color: var(--purple);
+        }
+
+        .benefit-content p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .members {
+            background: #fff5fa;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .member-card {
+            overflow: hidden;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 8px 25px #0000000a;
+            text-align: center;
+        }
+
+        .member-card img {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .member-info {
+            padding: 18px 12px 20px;
+        }
+
+        .member-info h3 {
+            color: var(--purple);
+            font-size: 17px;
+        }
+
+        .member-info p {
+            margin-top: 5px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+            background: linear-gradient(100deg, var(--purple), var(--pink));
+            color: white;
+        }
+
+        .stats h2 {
+            font-size: 38px;
+        }
+
+        .stats p {
+            color: #f5eaff;
+        }
+
+        .schedule {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: var(--light);
+        }
+
+        .schedule-item strong {
+            color: var(--purple);
+        }
+
+        .gallery {
+            background: #fff5fa;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .faq {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .faq details {
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: var(--light);
+        }
+
+        .faq summary {
+            color: var(--purple);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .faq details p {
+            margin-top: 12px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .register {
+            background: linear-gradient(120deg, #351c63, #9a36a9);
+            color: white;
+            text-align: center;
+        }
+
+        .register p {
+            margin: 15px auto 30px;
+            max-width: 550px;
+            color: #eee1fa;
+        }
+
+        .register form {
+            max-width: 480px;
+            margin: auto;
+            display: grid;
+            gap: 15px;
+        }
+
+        .register input,
+        .register select {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font: inherit;
+        }
+
+        .register .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #eee1fa;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .register .consent input {
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            margin-top: 5px;
+            border-radius: 3px;
+            accent-color: var(--pink);
+        }
+
+        .register button {
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: var(--orange);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .register button:disabled {
+            cursor: not-allowed;
+            opacity: .7;
+        }
+
+        footer {
+            background: #211331;
+            color: white;
+            padding: 35px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #c8b9d6;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        footer a {
+            display: inline-block;
+            margin-top: 14px;
+            color: #ffadcf;
+            font-size: 13px;
+        }
+
+        #menuBtn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                padding: 16px 5%;
+            }
+
+            #menuBtn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 25px;
+                flex-direction: column;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-explorer summary {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .activity-explorer summary img {
+                height: 190px;
+            }
+
+            .activity-explorer-action {
+                justify-self: start;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .member-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 6%;
+            }
+
+            .hero {
+                padding: 60px 6%;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .member-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card img {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">AEROBIC CLUB</div>
+    <header>
+        <div class="logo">AEROBIC CLUB</div>
 
-  <button id="menuBtn" aria-label="Open navigation">☰</button>
+        <button id="menuBtn" aria-label="Open navigation">☰</button>
 
-  <nav id="nav">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#activities">Activities</a>
-    <a href="#events">Events</a>
-    <a href="#members">Members</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#faq">FAQ</a>
-    <a href="#join" class="join-btn">Join Us</a>
-  </nav>
-</header>
+        <nav id="nav">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#activities">Activities</a>
+            <a href="#events">Events</a>
+            <a href="#members">Members</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#faq">FAQ</a>
+            <a href="#join" class="join-btn">Join Us</a>
+        </nav>
+    </header>
 
-<!-- HOME -->
-<div class="hero" id="home">
-  <div class="hero-content">
-    <small>GENERATION 2027</small>
-    <h1>MOVE TOGETHER,<br><span>SHINE TOGETHER!</span></h1>
-    <p>
-      Let's move our bodies, build friendships, improve our health
-      and create unforgettable memories together.
-      Everyone is welcome!
-    </p>
-    <a href="#join" class="hero-btn">Join Our Club →</a>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about">
-    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900" alt="Fitness exercise">
-    <div>
-      <small style="color:#fa579b;font-weight:bold;">WHO WE ARE</small>
-      <h2>Welcome to Aerobic Club!</h2>
-      <p>
-        Aerobic Club is a student community that encourages
-        everyone to stay active, healthy and happy through
-        music, dance and physical activities.
-      </p>
-      <p>
-        Our mission is to create a friendly environment where
-        students can exercise, develop teamwork, improve
-        confidence and make new friends.
-      </p>
-      <a href="#activities" class="hero-btn">Explore Activities</a>
-    </div>
-  </div>
-</section>
-
-<!-- WHY JOIN -->
-<section>
-  <div class="section-title">
-    <small>MORE THAN A WORKOUT</small>
-    <h2>Why Join Our Club?</h2>
-    <p>Find your people, try something new and feel good doing it.</p>
-  </div>
-
-  <div class="benefits">
-    <article class="benefit">
-      <img src="assets/benefits/fun-for-everyone.png" alt="Club members enjoying an aerobic dance session">
-      <div class="benefit-content">
-        <span aria-hidden="true">🎶</span>
-        <h3>Fun for Everyone</h3>
-        <p>Enjoy upbeat sessions designed for beginners and experienced dancers alike.</p>
-      </div>
-    </article>
-    <article class="benefit">
-      <img src="assets/benefits/feel-stronger.png" alt="Aerobic Club members posing together after a workout">
-      <div class="benefit-content">
-        <span aria-hidden="true">💪</span>
-        <h3>Feel Stronger</h3>
-        <p>Build energy, coordination and confidence at your own pace.</p>
-      </div>
-    </article>
-    <article class="benefit">
-      <img src="assets/benefits/make-connections.png" alt="Aerobic Club members gathered together">
-      <div class="benefit-content">
-        <span aria-hidden="true">🤝</span>
-        <h3>Make Connections</h3>
-        <p>Meet new friends and be part of a welcoming, supportive community.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- MEMBERS -->
-<section class="members" id="members">
-  <div class="section-title">
-    <small>THE PEOPLE BEHIND THE ENERGY</small>
-    <h2>Meet Our Members</h2>
-    <p>Meet the members who bring energy and community to our club.</p>
-  </div>
-
-  <div class="member-grid">
-    <article class="member-card">
-      <img src="assets/members/chan-koemsour.png" alt="CHAN Koemsour">
-      <div class="member-info">
-        <h3>CHAN Koemsour</h3>
-        <p>Member</p>
-      </div>
-    </article>
-    <article class="member-card">
-      <img src="assets/members/touch-pisey.png" alt="TOUCH Pisey">
-      <div class="member-info">
-        <h3>TOUCH Pisey</h3>
-        <p>Member</p>
-      </div>
-    </article>
-    <article class="member-card">
-      <img src="assets/members/im-phors.png" alt="IM Phors">
-      <div class="member-info">
-        <h3>IM Phors</h3>
-        <p>Leader</p>
-      </div>
-    </article>
-    <article class="member-card">
-      <img src="assets/members/hung-phongpisey.png" alt="HUNG Phongpisey">
-      <div class="member-info">
-        <h3>HUNG Phongpisey</h3>
-        <p>Member</p>
-      </div>
-    </article>
-    <article class="member-card">
-      <img src="assets/members/lay-lue.png" alt="LAY Lue">
-      <div class="member-info">
-        <h3>LAY Lue</h3>
-        <p>Member</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- STATS -->
-<section class="stats">
-  <div>
-    <h2>50–100</h2>
-    <p>Target Participants</p>
-  </div>
-  <div>
-    <h2>100%</h2>
-    <p>Positive Energy</p>
-  </div>
-  <div>
-    <h2>1</h2>
-    <p>United Community</p>
-  </div>
-</section>
-
-<!-- ACTIVITIES -->
-<section class="activities" id="activities">
-  <div class="section-title">
-    <small>WHAT WE DO</small>
-    <h2>Our Activities</h2>
-    <p>Fun activities for a healthy and happy lifestyle.</p>
-  </div>
-
-  <details class="activity-explorer">
-    <summary>
-      <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=800" alt="">
-      <span class="activity-explorer-copy">
-        <strong>Find your next favorite activity</strong>
-        <span>Dance, fitness, teamwork and more. Open to explore all six activities.</span>
-      </span>
-      <span class="activity-explorer-action">
-        <span class="show-activities">View all 6 activities ↓</span>
-        <span class="hide-activities">Hide activities ↑</span>
-      </span>
-    </summary>
-
-    <div class="cards">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=800" alt="Aerobic dance">
-        <div class="card-content">
-          <h3>💃 Aerobic Dance</h3>
-          <p>Enjoy energetic music and movement while improving fitness.</p>
+    <!-- HOME -->
+    <div class="hero" id="home">
+        <div class="hero-content">
+            <small>GENERATION 2027</small>
+            <h1>MOVE TOGETHER,<br><span>SHINE TOGETHER!</span></h1>
+            <p>
+                Let's move our bodies, build friendships, improve our health
+                and create unforgettable memories together.
+                Everyone is welcome!
+            </p>
+            <a href="#join" class="hero-btn">Join Our Club →</a>
         </div>
-      </div>
+    </div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800" alt="Zumba fitness">
-        <div class="card-content">
-          <h3>🎵 Zumba Fitness</h3>
-          <p>Dance, exercise and have fun with friends.</p>
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900" alt="Fitness exercise">
+            <div>
+                <small style="color:#fa579b;font-weight:bold;">WHO WE ARE</small>
+                <h2>Welcome to Aerobic Club!</h2>
+                <p>
+                    Aerobic Club is a student community that encourages
+                    everyone to stay active, healthy and happy through
+                    music, dance and physical activities.
+                </p>
+                <p>
+                    Our mission is to create a friendly environment where
+                    students can exercise, develop teamwork, improve
+                    confidence and make new friends.
+                </p>
+                <a href="#activities" class="hero-btn">Explore Activities</a>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800" alt="Team activities">
-        <div class="card-content">
-          <h3>🤝 Team Challenges</h3>
-          <p>Build teamwork, leadership, communication and friendship.</p>
+    <!-- WHY JOIN -->
+    <section>
+        <div class="section-title">
+            <small>MORE THAN A WORKOUT</small>
+            <h2>Why Join Our Club?</h2>
+            <p>Find your people, try something new and feel good doing it.</p>
         </div>
-      </div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800" alt="Dance performance">
-        <div class="card-content">
-          <h3>🇰🇭 Khmer Dance Fitness</h3>
-          <p>Celebrate Cambodian culture through movement and music.</p>
+        <div class="benefits">
+            <article class="benefit">
+                <img src="assets/benefits/fun-for-everyone.png" alt="Club members enjoying an aerobic dance session">
+                <div class="benefit-content">
+                    <span aria-hidden="true">🎶</span>
+                    <h3>Fun for Everyone</h3>
+                    <p>Enjoy upbeat sessions designed for beginners and experienced dancers alike.</p>
+                </div>
+            </article>
+            <article class="benefit">
+                <img src="assets/benefits/feel-stronger.png" alt="Aerobic Club members posing together after a workout">
+                <div class="benefit-content">
+                    <span aria-hidden="true">💪</span>
+                    <h3>Feel Stronger</h3>
+                    <p>Build energy, coordination and confidence at your own pace.</p>
+                </div>
+            </article>
+            <article class="benefit">
+                <img src="assets/benefits/make-connections.png" alt="Aerobic Club members gathered together">
+                <div class="benefit-content">
+                    <span aria-hidden="true">🤝</span>
+                    <h3>Make Connections</h3>
+                    <p>Meet new friends and be part of a welcoming, supportive community.</p>
+                </div>
+            </article>
         </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=800" alt="Group dancing">
-        <div class="card-content">
-          <h3>🔥 Dance Battle</h3>
-          <p>Show your creativity and confidence through fun dance competitions.</p>
+    <!-- MEMBERS -->
+    <section class="members" id="members">
+        <div class="section-title">
+            <small>THE PEOPLE BEHIND THE ENERGY</small>
+            <h2>Meet Our Members</h2>
+            <p>Meet the members who bring energy and community to our club.</p>
         </div>
-      </div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800" alt="Cool down exercise">
-        <div class="card-content">
-          <h3>🧘 Cool Down</h3>
-          <p>Relax, stretch and recover after energetic activities.</p>
+        <div class="member-grid">
+            <article class="member-card">
+                <img src="assets/members/chan-koemsour.png" alt="CHAN Koemsour">
+                <div class="member-info">
+                    <h3>CHAN Koemsour</h3>
+                    <p>Member</p>
+                </div>
+            </article>
+            <article class="member-card">
+                <img src="assets/members/touch-pisey.png" alt="TOUCH Pisey">
+                <div class="member-info">
+                    <h3>TOUCH Pisey</h3>
+                    <p>Member</p>
+                </div>
+            </article>
+            <article class="member-card">
+                <img src="assets/members/im-phors.png" alt="IM Phors">
+                <div class="member-info">
+                    <h3>IM Phors</h3>
+                    <p>Leader</p>
+                </div>
+            </article>
+            <article class="member-card">
+                <img src="assets/members/hung-phongpisey.png" alt="HUNG Phongpisey">
+                <div class="member-info">
+                    <h3>HUNG Phongpisey</h3>
+                    <p>Member</p>
+                </div>
+            </article>
+            <article class="member-card">
+                <img src="assets/members/lay-lue.png" alt="LAY Lue">
+                <div class="member-info">
+                    <h3>LAY Lue</h3>
+                    <p>Member</p>
+                </div>
+            </article>
         </div>
-      </div>
-    </div>
-  </details>
-</section>
+    </section>
 
-<!-- EVENTS -->
-<section id="events">
-  <div class="section-title">
-    <small>OUR PROGRAM</small>
-    <h2>Event Schedule</h2>
-    <p>A sample one-day Aerobic Club program.</p>
-  </div>
+    <!-- STATS -->
+    <section class="stats">
+        <div>
+            <h2>50–100</h2>
+            <p>Target Participants</p>
+        </div>
+        <div>
+            <h2>100%</h2>
+            <p>Positive Energy</p>
+        </div>
+        <div>
+            <h2>1</h2>
+            <p>United Community</p>
+        </div>
+    </section>
 
-  <div class="schedule">
-    <div class="schedule-item">
-      <strong>8:00 AM</strong><span>Opening Ceremony</span>
-    </div>
-    <div class="schedule-item">
-      <strong>8:30 AM</strong><span>Warm-up & Aerobic Dance</span>
-    </div>
-    <div class="schedule-item">
-      <strong>9:00 AM</strong><span>Zumba Fitness</span>
-    </div>
-    <div class="schedule-item">
-      <strong>9:45 AM</strong><span>Team Challenges</span>
-    </div>
-    <div class="schedule-item">
-      <strong>10:30 AM</strong><span>Khmer Dance Fitness</span>
-    </div>
-    <div class="schedule-item">
-      <strong>11:00 AM</strong><span>Cool Down & Group Photos</span>
-    </div>
-  </div>
-</section>
+    <!-- ACTIVITIES -->
+    <section class="activities" id="activities">
+        <div class="section-title">
+            <small>WHAT WE DO</small>
+            <h2>Our Activities</h2>
+            <p>Fun activities for a healthy and happy lifestyle.</p>
+        </div>
 
-<!-- GALLERY -->
-<section class="gallery" id="gallery">
-  <div class="section-title">
-    <small>OUR MEMORIES</small>
-    <h2>Photo Gallery</h2>
-    <p>Move, smile and create memories together!</p>
-  </div>
+        <details class="activity-explorer">
+            <summary>
+                <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=800" alt="">
+                <span class="activity-explorer-copy">
+                    <strong>Find your next favorite activity</strong>
+                    <span>Dance, fitness, teamwork and more. Open to explore all six activities.</span>
+                </span>
+                <span class="activity-explorer-action">
+                    <span class="show-activities">View all 6 activities ↓</span>
+                    <span class="hide-activities">Hide activities ↑</span>
+                </span>
+            </summary>
 
-  <div class="gallery-grid">
-    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=700" alt="Fitness">
-    <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=700" alt="Group activity">
-    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700" alt="Workout">
-    <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=700" alt="Dance">
-    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=700" alt="Team">
-    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=700" alt="Performance">
-  </div>
-</section>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=800" alt="Aerobic dance">
+                    <div class="card-content">
+                        <h3>💃 Aerobic Dance</h3>
+                        <p>Enjoy energetic music and movement while improving fitness.</p>
+                    </div>
+                </div>
 
-<!-- FAQ -->
-<section id="faq">
-  <div class="section-title">
-    <small>GOOD TO KNOW</small>
-    <h2>Frequently Asked Questions</h2>
-  </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800" alt="Zumba fitness">
+                    <div class="card-content">
+                        <h3>🎵 Zumba Fitness</h3>
+                        <p>Dance, exercise and have fun with friends.</p>
+                    </div>
+                </div>
 
-  <div class="faq">
-    <details>
-      <summary>Do I need dance experience to join?</summary>
-      <p>No experience is needed. Our sessions are welcoming to beginners, and you can follow along at your own pace.</p>
-    </details>
-    <details>
-      <summary>What should I bring?</summary>
-      <p>Wear comfortable clothes and sneakers, and bring a water bottle to stay hydrated.</p>
-    </details>
-    <details>
-      <summary>How do I become a member?</summary>
-      <p>Fill in the registration form below and choose the activity you are most interested in. Our team can follow up with session details.</p>
-    </details>
-  </div>
-</section>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800" alt="Team activities">
+                    <div class="card-content">
+                        <h3>🤝 Team Challenges</h3>
+                        <p>Build teamwork, leadership, communication and friendship.</p>
+                    </div>
+                </div>
 
-<!-- JOIN -->
-<section class="register" id="join">
-  <h2>Ready to Move With Us?</h2>
-  <p>
-    Join Aerobic Club Generation 2027.
-    Let's build a healthier, happier and stronger community!
-  </p>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800"
+                        alt="Dance performance">
+                    <div class="card-content">
+                        <h3>🇰🇭 Khmer Dance Fitness</h3>
+                        <p>Celebrate Cambodian culture through movement and music.</p>
+                    </div>
+                </div>
 
-  <form id="joinForm">
-    <input type="text" id="name" placeholder="Your Full Name" required>
-    <input type="email" id="email" placeholder="Your Email Address" required>
-    <input type="tel" id="phone" placeholder="Your Phone Number" required>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=800" alt="Group dancing">
+                    <div class="card-content">
+                        <h3>🔥 Dance Battle</h3>
+                        <p>Show your creativity and confidence through fun dance competitions.</p>
+                    </div>
+                </div>
 
-    <select id="activity" required>
-      <option value="">Choose Your Favorite Activity</option>
-      <option>Aerobic Dance</option>
-      <option>Zumba Fitness</option>
-      <option>Team Challenges</option>
-      <option>Khmer Dance Fitness</option>
-    </select>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800"
+                        alt="Cool down exercise">
+                    <div class="card-content">
+                        <h3>🧘 Cool Down</h3>
+                        <p>Relax, stretch and recover after energetic activities.</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </section>
 
-    <button type="submit">Register Now →</button>
-  </form>
+    <!-- EVENTS -->
+    <section id="events">
+        <div class="section-title">
+            <small>OUR PROGRAM</small>
+            <h2>Event Schedule</h2>
+            <p>A sample one-day Aerobic Club program.</p>
+        </div>
 
-  <p id="message" aria-live="polite"></p>
-</section>
+        <div class="schedule">
+            <div class="schedule-item">
+                <strong>8:00 AM</strong><span>Opening Ceremony</span>
+            </div>
+            <div class="schedule-item">
+                <strong>8:30 AM</strong><span>Warm-up & Aerobic Dance</span>
+            </div>
+            <div class="schedule-item">
+                <strong>9:00 AM</strong><span>Zumba Fitness</span>
+            </div>
+            <div class="schedule-item">
+                <strong>9:45 AM</strong><span>Team Challenges</span>
+            </div>
+            <div class="schedule-item">
+                <strong>10:30 AM</strong><span>Khmer Dance Fitness</span>
+            </div>
+            <div class="schedule-item">
+                <strong>11:00 AM</strong><span>Cool Down & Group Photos</span>
+            </div>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <h2>💜 AEROBIC CLUB</h2>
-  <p>MOVE TOGETHER, SHINE TOGETHER!</p>
-  <p>Generation 2027 | Health • Happiness • Unity • Friendship</p>
-  <p>© 2026 Aerobic Club. All Rights Reserved.</p>
-</footer>
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="section-title">
+            <small>OUR MEMORIES</small>
+            <h2>Photo Gallery</h2>
+            <p>Move, smile and create memories together!</p>
+        </div>
 
-<script>
-  const menuBtn = document.getElementById("menuBtn");
-  const nav = document.getElementById("nav");
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=700" alt="Fitness">
+            <img src="https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?w=700" alt="Group activity">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700" alt="Workout">
+            <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=700" alt="Dance">
+            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=700" alt="Team">
+            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=700" alt="Performance">
+        </div>
+    </section>
 
-  menuBtn.addEventListener("click", function() {
-    nav.classList.toggle("active");
-  });
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="section-title">
+            <small>GOOD TO KNOW</small>
+            <h2>Frequently Asked Questions</h2>
+        </div>
 
-  document.querySelectorAll("nav a").forEach(function(link) {
-    link.addEventListener("click", function() {
-      nav.classList.remove("active");
-    });
-  });
+        <div class="faq">
+            <details>
+                <summary>Do I need dance experience to join?</summary>
+                <p>No experience is needed. Our sessions are welcoming to beginners, and you can follow along at your
+                    own pace.</p>
+            </details>
+            <details>
+                <summary>What should I bring?</summary>
+                <p>Wear comfortable clothes and sneakers, and bring a water bottle to stay hydrated.</p>
+            </details>
+            <details>
+                <summary>How do I become a member?</summary>
+                <p>Fill in the registration form below and choose the activity you are most interested in. Our team can
+                    follow up with session details.</p>
+            </details>
+        </div>
+    </section>
 
-  document.getElementById("joinForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    <!-- JOIN -->
+    <section class="register" id="join">
+        <h2>Ready to Move With Us?</h2>
+        <p>
+            Join Aerobic Club Generation 2027.
+            Let's build a healthier, happier and stronger community!
+        </p>
 
-    const name = document.getElementById("name").value;
+        <form id="joinForm">
+            <input type="text" id="name" name="name" placeholder="Your Full Name" maxlength="120" autocomplete="name"
+                required>
+            <input type="email" id="email" name="email" placeholder="Your Email Address" maxlength="254"
+                autocomplete="email" required>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" maxlength="40" autocomplete="tel"
+                required>
 
-    document.getElementById("message").textContent =
-      "Thank you, " + name + "! Your demo registration was successful. 💜";
+            <select id="activity" name="activity" required>
+                <option value="">Choose Your Favorite Activity</option>
+                <option>Aerobic Dance</option>
+                <option>Zumba Fitness</option>
+                <option>Team Challenges</option>
+                <option>Khmer Dance Fitness</option>
+                <option>Dance Battle</option>
+                <option>Cool Down</option>
+            </select>
 
-    this.reset();
-  });
-</script>
+            <label class="consent">
+                <input type="checkbox" id="consent" required>
+                <span>I agree to share my contact details with Aerobic Club administrators for membership
+                    follow-up.</span>
+            </label>
+
+            <button type="submit">Register Now →</button>
+        </form>
+
+        <p id="message" role="status" aria-live="polite">Online registration is being set up. Please contact the club
+            directly for now.</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <h2>💜 AEROBIC CLUB</h2>
+        <p>MOVE TOGETHER, SHINE TOGETHER!</p>
+        <p>Generation 2027 | Health • Happiness • Unity • Friendship</p>
+        <p>© 2026 Aerobic Club. All Rights Reserved.</p>
+        <a href="admin.html">Administrator login</a>
+    </footer>
+
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const nav = document.getElementById("nav");
+        const joinForm = document.getElementById("joinForm");
+        const joinMessage = document.getElementById("message");
+        const submitButton = joinForm.querySelector('button[type="submit"]');
+
+        const supabaseConfigured = Boolean(
+            window.AEROBIC_SUPABASE_URL &&
+            !window.AEROBIC_SUPABASE_URL.includes("YOUR_") &&
+            window.AEROBIC_SUPABASE_ANON_KEY &&
+            !window.AEROBIC_SUPABASE_ANON_KEY.includes("YOUR_") &&
+            window.supabase
+        );
+        const supabaseClient = supabaseConfigured
+            ? window.supabase.createClient(
+                window.AEROBIC_SUPABASE_URL,
+                window.AEROBIC_SUPABASE_ANON_KEY
+            )
+            : null;
+
+        if (supabaseConfigured) {
+            joinMessage.textContent = "";
+        } else {
+            submitButton.disabled = true;
+        }
+
+        menuBtn.addEventListener("click", function () {
+            nav.classList.toggle("active");
+        });
+
+        document.querySelectorAll("nav a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                nav.classList.remove("active");
+            });
+        });
+
+        joinForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            if (!supabaseClient) {
+                joinMessage.textContent = "Online registration is not configured yet. Please contact the club directly.";
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+            joinMessage.textContent = "";
+
+            try {
+                const { error } = await supabaseClient
+                    .from("registrations")
+                    .insert({
+                        name: document.getElementById("name").value.trim(),
+                        email: document.getElementById("email").value.trim(),
+                        phone: document.getElementById("phone").value.trim(),
+                        activity: document.getElementById("activity").value
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+                const name = document.getElementById("name").value.trim();
+                joinMessage.textContent = "Thank you, " + name + "! Your registration was received. 💜";
+                joinForm.reset();
+            } catch (error) {
+                console.error("Registration submission failed:", error);
+                joinMessage.textContent = "We couldn't submit your registration. Please try again later.";
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "Register Now →";
+            }
+        });
+    </script>
 
 </body>
+
 </html>
